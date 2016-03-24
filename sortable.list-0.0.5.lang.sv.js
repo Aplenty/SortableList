@@ -1,4 +1,4 @@
-var sortableListLang = [
+ï»¿var sortableListLang = [
 	{
 		key: "Displaying",
 		value: "Visar"
@@ -13,11 +13,11 @@ var sortableListLang = [
 	},
 	{
 		key: "Prev",
-		value: "Föregående"
+		value: "FÃ¶regÃ¥ende"
 	},
 	{
 		key: "Next",
-		value: "Nästa"
+		value: "NÃ¤sta"
 	},
 	{
 		key: "Add new",
@@ -29,11 +29,11 @@ var sortableListLang = [
 	},
 	{
 		key: "Actions",
-		value: "Utför"
+		value: "UtfÃ¶r"
 	},
 	{
 		key: "Something went wrong. Try again and if the error remains please contact the system administrator.",
-		value: "Något gick fel, försök igen och om felet kvarstår var god kontakta systemadministratören."
+		value: "NÃ¥got gick fel, fÃ¶rsÃ¶k igen och om felet kvarstÃ¥r var god kontakta systemadministratÃ¶ren."
 	},
 	{
 		key: "Ok",
@@ -41,7 +41,7 @@ var sortableListLang = [
 	},
 	{
 		key: "Click to fold down options",
-		value: "Klicka för att fälla ner alternativ"
+		value: "Klicka fÃ¶r att fÃ¤lla ner alternativ"
 	},
 	{
 		key: "Loading",
