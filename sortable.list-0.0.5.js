@@ -13,7 +13,7 @@ SortableLists.getByContainer = function (container) {
 
 //The class that manages a list, an instance maintains all data and functionality for a list.
 function SortableList() {
-    var self = this;
+    var sortableListSelf = this;
     var ServerUrl;
     var model;
     var ajaxCall = null;
@@ -33,23 +33,23 @@ function SortableList() {
     var searchText = "";
     var page = 1;
 
-    self.GetModel = function() {
+    sortableListSelf.GetModel = function() {
         return model;
     };
 
-    self.GetContainer = function() {
+    sortableListSelf.GetContainer = function() {
         return Container;
     };
 
-    self.GetId = function(){
+    sortableListSelf.GetId = function(){
         return Id;
     };
 
-    self.GetContentPath = function () {
+    sortableListSelf.GetContentPath = function () {
     	return ContentPath;
     };
 
-	self.t = function(src)
+	sortableListSelf.t = function(src)
 	{
 		//If string does not start with "[[[", we assume i18n plugin has been used and it is already translated
 		if(this.indexOf("[["+"[") != 0) //split so not found by i18n
@@ -103,7 +103,7 @@ function SortableList() {
 		return parsedSource;
 	}
 
-    self.CreateSortableList = function (containerElement, url, template, contentPath, id, settings) {
+    sortableListSelf.CreateSortableList = function (containerElement, url, template, contentPath, id, settings) {
         Container = containerElement;
         ServerUrl = url;
 
@@ -119,21 +119,21 @@ function SortableList() {
             Settings = settings;
 
         _template = template;
-	     self.insertListHtml(_template);
-        self.fetchDataSet(function (data) {
-            model = new self.ListViewModel(data);
+	     sortableListSelf.insertListHtml(_template);
+        sortableListSelf.fetchDataSet(function (data) {
+            model = new sortableListSelf.ListViewModel(data);
             ko.applyBindings(model, Container);
         });
     };
 
 	//should never be needed normally but sometimes the list can bug out from dom detatch/reattach and then it's called from reset function
-	self.clearListHtml = function() {
+	sortableListSelf.clearListHtml = function() {
 
 		//We allow custom lists so if there is html we do not overwrite it.
 		$(Container).html("");
 	};
 
-	self.insertListHtml = function (template) {
+	sortableListSelf.insertListHtml = function (template) {
 
         //We allow custom lists so if there is html we do not overwrite it.
         if ($(Container).html().trim().length > 0) {
@@ -145,9 +145,9 @@ function SortableList() {
 
 
         var defaultPager = "<div class='pagination-centered'>" +
-            "<div data-bind='text: \" "+t("[[[Displaying]]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+t("[[[of///displaying 10-20 OF 40 results]]]")+" \" + $root.TotalItemCount() + \" "+t("[[[total results.]]]")+"\"'>" +
+            "<div data-bind='text: \" "+sortableListSelf.t("[[[Displaying]]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+sortableListSelf.t("[[[of///displaying 10-20 OF 40 results]]]")+" \" + $root.TotalItemCount() + \" "+sortableListSelf.t("[[[total results.]]]")+"\"'>" +
                 "</div><ul class='pagination'>" +
-                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+t("[[[Prev]]]")+"</a></li>" +
+                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+sortableListSelf.t("[[[Prev]]]")+"</a></li>" +
                 "<!-- ko foreach: pages -->" +
                 "<!-- ko if: (pageNr == 1 && $root.CurrentPage() >= 4 && Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) > 5)  -->" +
                 "<li class='pagenum' data-bind='click: $root.changePage'><a href='' data-bind='text: (pageNr+\"...\")'></a></li>" +
@@ -159,8 +159,8 @@ function SortableList() {
                 "<li class='pagenum' data-bind='click: $root.changePage'><a href='' data-bind='text: (\"...\"+pageNr)'></a></li>" +
                 "<!-- /ko -->" +
                 "<!-- /ko -->" +
-                //"<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { inactive: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+t("[[[Next]]]")+" &raquo;</a></li>" +
-                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { unavailable: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+t("[[[Next]]]")+" &raquo;</a></li>" +
+                //"<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { inactive: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+sortableListSelf.t("[[[Next]]]")+" &raquo;</a></li>" +
+                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { unavailable: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+sortableListSelf.t("[[[Next]]]")+" &raquo;</a></li>" +
                 "</ul></div>";
 
 
@@ -172,7 +172,7 @@ function SortableList() {
 
             html +=
                 //"<div class='filter'>" +
-                //    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+t("[[[filter]]]")+"' />" +
+                //    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+sortableListSelf.t("[[[filter]]]")+"' />" +
                 //"</div>" +
                 "<div>" +
                     "<div class='header'>" +
@@ -193,7 +193,7 @@ function SortableList() {
                              "</div>" +
                              "<div class='filter small-12 large-9 large-pull-3 columns'>" +
                                 // TODO: valueUpdate: "afterkeydown" works in IE9-, but also triggers on shift, alt and so on. Once IE9 support is dropped, change to "input" instead, that only responds to actual changes
-                                "<input class='reload-on-dom-insert' type='text' data-bind='value: searchText, valueUpdate: \"afterkeydown\", event: {keyup: $root.search}' placeholder='"+t("[[[filter]]]")+"' />" +
+                                "<input class='reload-on-dom-insert' type='text' data-bind='value: searchText, valueUpdate: \"afterkeydown\", event: {keyup: $root.search}' placeholder='"+sortableListSelf.t("[[[filter]]]")+"' />" +
                             "</div>" +
                         "</div>"+
                     "</div>" +
@@ -270,7 +270,7 @@ function SortableList() {
 									"<!-- ko if: $parent.Cells().length == ($index()+1) -->" +
 
 										"<!-- ko if: $root.HideActionsColumn() == false -->" +
-											"<td class='listActions FoldChildren' data-bind='attr: {\"data-heading\": \""+t("[[[Actions]]]")+"\"}'>" +
+											"<td class='listActions FoldChildren' data-bind='attr: {\"data-heading\": \""+sortableListSelf.t("[[[Actions]]]")+"\"}'>" +
 												"<!-- ko foreach: $parent.ActionGroups -->" +
 													"<span class='action-group'>" +
 														"<!-- ko foreach: Actions() -->" +
@@ -336,7 +336,7 @@ function SortableList() {
 
     };
 
-    self.fetchDataSet = function (done) {
+    sortableListSelf.fetchDataSet = function (done) {
 
         //If we want new data we want to cancel any current requests
         if (ajaxCall != null) {
@@ -361,11 +361,11 @@ function SortableList() {
             })
             .fail(function () {
             	ajaxCall = null;
-            	$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
+            	$(Container).block({ message: '<div class="blockui-info-box">'+sortableListSelf.t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+sortableListSelf.t("[[[Ok]]]")+'</a></div>' });
             });
     };
 
-    self.PagingModel = function() {
+    sortableListSelf.PagingModel = function() {
         selfPager = this;
 
         selfPager.pageNr = ko.observable();
@@ -374,7 +374,7 @@ function SortableList() {
 
 
 
-    self.ListViewModel = function (data) {
+    sortableListSelf.ListViewModel = function (data) {
         var selfModel = this;
         selfModel.searchText = ko.observable();
         selfModel.pages = ko.observableArray();
@@ -382,7 +382,7 @@ function SortableList() {
 
 
         selfModel.getActionText = function () {
-            return selfModel.isFullSize() ? t("[[[Actions]]]") : "<em>"+t("[[[Click to fold down options]]]")+"</em>";
+            return selfModel.isFullSize() ? t("[[[Actions]]]") : "<em>"+sortableListSelf.t("[[[Click to fold down options]]]")+"</em>";
         }
 
 
@@ -413,7 +413,7 @@ function SortableList() {
         //Apart from the set model properties above we also populate the model with data from the server
 
         selfModel.GetContentPath = function () {
-        	return self.GetContentPath();
+        	return sortableListSelf.GetContentPath();
         };
 
 
@@ -607,7 +607,7 @@ function SortableList() {
                 if (actionData.ExecuteAsAjax() == true) {
                     
                     $(Container).block({ message: $(".loading-anim").html() });
-                	//$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Loading]]]")+'</div>' });
+                	//$(Container).block({ message: '<div class="blockui-info-box">'+sortableListSelf.t("[[[Loading]]]")+'</div>' });
 
                     ajaxCall = $.ajax({
                         type: "POST",
@@ -630,15 +630,15 @@ function SortableList() {
                     	}
                     	else if (data != null && data.hasOwnProperty("OperationSuccess") && data.OperationSuccess == false && data.hasOwnProperty("OperationMessage")) {
                     	    // JSon-result with Success and OperationMessage (Json-serialized OperationResultModel-object). Something went wrong, and we have an error message to present
-                    	    $(Container).block({ message: '<div class="blockui-info-box">' + data.OperationMessage + ' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
+                    	    $(Container).block({ message: '<div class="blockui-info-box">' + data.OperationMessage + ' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+sortableListSelf.t("[[[Ok]]]")+'</a></div>' });
 	                    } else {
-                    		$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
+                    		$(Container).block({ message: '<div class="blockui-info-box">'+sortableListSelf.t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+sortableListSelf.t("[[[Ok]]]")+'</a></div>' });
 	                    }
 
 					})
                     .fail(function () {
                     	ajaxCall = null;
-                    	$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
+                    	$(Container).block({ message: '<div class="blockui-info-box">'+sortableListSelf.t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+sortableListSelf.t("[[[Ok]]]")+'</a></div>' });
                     });
 
 	                return;
@@ -689,10 +689,10 @@ function SortableList() {
 			        });
 		        }
 		        ko.cleanNode(Container);
-		        self.clearListHtml();
-		        self.insertListHtml(_template);
-        		self.fetchDataSet(function (data) {
-        			model = new self.ListViewModel(data);
+		        sortableListSelf.clearListHtml();
+		        sortableListSelf.insertListHtml(_template);
+        		sortableListSelf.fetchDataSet(function (data) {
+        			model = new sortableListSelf.ListViewModel(data);
         			ko.applyBindings(model, Container);
         		});
 
@@ -801,7 +801,7 @@ function SortableList() {
         };
 
         selfModel.FetchAndUpdate = function() {
-            self.fetchDataSet(function(fetchedData) {
+            sortableListSelf.fetchDataSet(function(fetchedData) {
             	selfModel.MapData(fetchedData);
 
             	if (selfModel.CurrentPage() > Math.ceil(selfModel.TotalItemCount() / selfModel.ItemsPerPage())) {
@@ -824,7 +824,7 @@ function SortableList() {
             selfModel.pages([]);
 
             while (selfModel.TotalItemCount() > (currentPage - 1) * selfModel.ItemsPerPage()) {
-                var tmpPage = new self.PagingModel();
+                var tmpPage = new sortableListSelf.PagingModel();
                 tmpPage.pageNr = currentPage;
 
                 if (currentPage == selfModel.ItemsPerPage()) {
