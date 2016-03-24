@@ -166,7 +166,7 @@ function SortableList() {
 
         //default template
         if (typeof template == 'undefined' || template == null || template.length == 0) {
-            var addButtonLabel = t("[[[Add new]]]");
+            var addButtonLabel = sortableListSelf.t("[[[Add new]]]");
             if (Settings != null && Settings.hasOwnProperty("add-label"))
                 addButtonLabel = Settings["add-label"];
 
