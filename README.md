@@ -1,7 +1,7 @@
 # SortableList
 Sortable, paged listing with javacript events. Lightweight and flexible
 
-Dependencies: Jquery, BlockUI, Knockout
+Dependencies: Jquery, BlockUI, Knockout, Knockout mapping
 
 Foundation support for figuring out if in will size
 

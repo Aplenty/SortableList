@@ -382,7 +382,7 @@ function SortableList() {
 
 
         selfModel.getActionText = function () {
-            return selfModel.isFullSize() ? t("[[[Actions]]]") : "<em>"+sortableListSelf.t("[[[Click to fold down options]]]")+"</em>";
+            return selfModel.isFullSize() ? sortableListSelf.t("[[[Actions]]]") : "<em>"+sortableListSelf.t("[[[Click to fold down options]]]")+"</em>";
         }
 
 
