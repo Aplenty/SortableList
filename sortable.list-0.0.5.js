@@ -49,7 +49,7 @@ function SortableList() {
     	return ContentPath;
     };
 
-	self._ = function(src)
+	self.t = function(src)
 	{
 		//If string does not start with "[[[", we assume i18n plugin has been used and it is already translated
 		if(this.indexOf("[["+"[") != 0) //split so not found by i18n
@@ -145,9 +145,9 @@ function SortableList() {
 
 
         var defaultPager = "<div class='pagination-centered'>" +
-            "<div data-bind='text: \" "+_("[[[Displaying]]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+_("[[[of///displaying 10-20 OF 40 results]]]")+" \" + $root.TotalItemCount() + \" "+_("[[[total results.]]]")+"\"'>" +
+            "<div data-bind='text: \" "+t("[[[Displaying]]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+t("[[[of///displaying 10-20 OF 40 results]]]")+" \" + $root.TotalItemCount() + \" "+t("[[[total results.]]]")+"\"'>" +
                 "</div><ul class='pagination'>" +
-                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+_("[[[Prev]]]")+"</a></li>" +
+                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+t("[[[Prev]]]")+"</a></li>" +
                 "<!-- ko foreach: pages -->" +
                 "<!-- ko if: (pageNr == 1 && $root.CurrentPage() >= 4 && Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) > 5)  -->" +
                 "<li class='pagenum' data-bind='click: $root.changePage'><a href='' data-bind='text: (pageNr+\"...\")'></a></li>" +
@@ -159,20 +159,20 @@ function SortableList() {
                 "<li class='pagenum' data-bind='click: $root.changePage'><a href='' data-bind='text: (\"...\"+pageNr)'></a></li>" +
                 "<!-- /ko -->" +
                 "<!-- /ko -->" +
-                //"<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { inactive: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+_("[[[Next]]]")+" &raquo;</a></li>" +
-                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { unavailable: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+_("[[[Next]]]")+" &raquo;</a></li>" +
+                //"<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { inactive: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+t("[[[Next]]]")+" &raquo;</a></li>" +
+                "<li class='arrow reload-on-dom-insert' data-bind='click: $root.nextPage, css: { unavailable: $root.CurrentPage() >= Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) }'><a href=''>"+t("[[[Next]]]")+" &raquo;</a></li>" +
                 "</ul></div>";
 
 
         //default template
         if (typeof template == 'undefined' || template == null || template.length == 0) {
-            var addButtonLabel = _("[[[Add new]]]");
+            var addButtonLabel = t("[[[Add new]]]");
             if (Settings != null && Settings.hasOwnProperty("add-label"))
                 addButtonLabel = Settings["add-label"];
 
             html +=
                 //"<div class='filter'>" +
-                //    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+_("[[[filter]]]")+"' />" +
+                //    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+t("[[[filter]]]")+"' />" +
                 //"</div>" +
                 "<div>" +
                     "<div class='header'>" +
@@ -193,7 +193,7 @@ function SortableList() {
                              "</div>" +
                              "<div class='filter small-12 large-9 large-pull-3 columns'>" +
                                 // TODO: valueUpdate: "afterkeydown" works in IE9-, but also triggers on shift, alt and so on. Once IE9 support is dropped, change to "input" instead, that only responds to actual changes
-                                "<input class='reload-on-dom-insert' type='text' data-bind='value: searchText, valueUpdate: \"afterkeydown\", event: {keyup: $root.search}' placeholder='"+_("[[[filter]]]")+"' />" +
+                                "<input class='reload-on-dom-insert' type='text' data-bind='value: searchText, valueUpdate: \"afterkeydown\", event: {keyup: $root.search}' placeholder='"+t("[[[filter]]]")+"' />" +
                             "</div>" +
                         "</div>"+
                     "</div>" +
@@ -270,7 +270,7 @@ function SortableList() {
 									"<!-- ko if: $parent.Cells().length == ($index()+1) -->" +
 
 										"<!-- ko if: $root.HideActionsColumn() == false -->" +
-											"<td class='listActions FoldChildren' data-bind='attr: {\"data-heading\": \""+_("[[[Actions]]]")+"\"}'>" +
+											"<td class='listActions FoldChildren' data-bind='attr: {\"data-heading\": \""+t("[[[Actions]]]")+"\"}'>" +
 												"<!-- ko foreach: $parent.ActionGroups -->" +
 													"<span class='action-group'>" +
 														"<!-- ko foreach: Actions() -->" +
@@ -361,7 +361,7 @@ function SortableList() {
             })
             .fail(function () {
             	ajaxCall = null;
-            	$(Container).block({ message: '<div class="blockui-info-box">'+_("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+_("[[[Ok]]]")+'</a></div>' });
+            	$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
             });
     };
 
@@ -382,7 +382,7 @@ function SortableList() {
 
 
         selfModel.getActionText = function () {
-            return selfModel.isFullSize() ? _("[[[Actions]]]") : "<em>"+_("[[[Click to fold down options]]]")+"</em>";
+            return selfModel.isFullSize() ? t("[[[Actions]]]") : "<em>"+t("[[[Click to fold down options]]]")+"</em>";
         }
 
 
@@ -607,7 +607,7 @@ function SortableList() {
                 if (actionData.ExecuteAsAjax() == true) {
                     
                     $(Container).block({ message: $(".loading-anim").html() });
-                	//$(Container).block({ message: '<div class="blockui-info-box">'+_("[[[Loading]]]")+'</div>' });
+                	//$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Loading]]]")+'</div>' });
 
                     ajaxCall = $.ajax({
                         type: "POST",
@@ -630,15 +630,15 @@ function SortableList() {
                     	}
                     	else if (data != null && data.hasOwnProperty("OperationSuccess") && data.OperationSuccess == false && data.hasOwnProperty("OperationMessage")) {
                     	    // JSon-result with Success and OperationMessage (Json-serialized OperationResultModel-object). Something went wrong, and we have an error message to present
-                    	    $(Container).block({ message: '<div class="blockui-info-box">' + data.OperationMessage + ' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+_("[[[Ok]]]")+'</a></div>' });
+                    	    $(Container).block({ message: '<div class="blockui-info-box">' + data.OperationMessage + ' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
 	                    } else {
-                    		$(Container).block({ message: '<div class="blockui-info-box">'+_("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+_("[[[Ok]]]")+'</a></div>' });
+                    		$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
 	                    }
 
 					})
                     .fail(function () {
                     	ajaxCall = null;
-                    	$(Container).block({ message: '<div class="blockui-info-box">'+_("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+_("[[[Ok]]]")+'</a></div>' });
+                    	$(Container).block({ message: '<div class="blockui-info-box">'+t("[[[Something went wrong. Try again and if the error remains please contact the system administrator.]]]")+' <a href="#" onclick="afterFailure(' + Id + '); return false;">'+t("[[[Ok]]]")+'</a></div>' });
                     });
 
 	                return;
