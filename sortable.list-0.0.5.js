@@ -84,14 +84,23 @@ function SortableList() {
 		//Get the actual string
 		var parsedSource = src.substring(3, endIndex);
 		
-		//We don't have our translation so we can't translate
+		//We don't have our translation so we can't translate, we return the parsed result without [[[]]]
 		if(typeof(sortableListLang) == 'undefined' || sortableListLang == null)
 		{
-			return src;
+			return parsedSource;
 		}
 		
+		for (var i = 0; i < sortableListLang.length; i++) {
+			
+			if(sortableListLang[i].key === parsedSource)
+			{
+				return sortableListLang[i].value;
+			}
+			
+		}
 		
-		
+		//Translation not found, we return the parsed result without [[[]]]
+		return parsedSource;
 	}
 
     self.CreateSortableList = function (containerElement, url, template, contentPath, id, settings) {
