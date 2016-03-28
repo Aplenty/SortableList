@@ -290,7 +290,7 @@ function SortableList() {
 												"<!-- ko foreach: $parent.Actions -->" +
 													"<a class='action' data-bind='attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", title: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description) }, click: function(data, event) { return $root.actionClick(data, event, $parents) }, clickBubble: false'>" +
 														"<!-- ko if: IsTextLabel() == false -->" +
-															"<img data-bind='attr { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \".svg\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
+															"<img data-bind='attr: { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \".svg\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
 														"<!-- /ko -->" +
 														"<!-- ko if: IsTextLabel() -->" +
 															"<span data-bind='text: Type()'>" +
