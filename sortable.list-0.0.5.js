@@ -66,7 +66,7 @@ function SortableList() {
 		}
 		
 		//If we have a comment, that actually ends our actual string
-		var nuggetComment = src.indexOf("///");
+		var nuggetComment = src.indexOf("/"+"//");
 		if(nuggetComment >= 0 && nuggetComment < endIndex)
 		{
 			endIndex = nuggetComment;
@@ -74,7 +74,7 @@ function SortableList() {
 		
 		//If we have paramters, that actually ends our actual string
 		//Since however does not really work correctly for parameters as there is no parameter insertion, so this would need to be exmpanded for parameters to work
-		var nuggetParameters = src.indexOf("|||");
+		var nuggetParameters = src.indexOf("|"+"||");
 		if(nuggetParameters >= 0 && nuggetParameters < endIndex)
 		{
 			endIndex = nuggetParameters;
