@@ -27,4 +27,4 @@ _3. data-list-settings_
 - Allows multiple different settings
   * add-label: Sets the text of the add new button
   * icon-file-ending: Sets the file ending for icons, default if not set is .svg
-- Example: `data-list-settings='{"add-label":"[[[Add]]]"}'`
+- Example: `data-list-settings='{"add-label":"[[[Add]]]", "icon-file-ending":"png"}'`
