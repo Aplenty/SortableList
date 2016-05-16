@@ -140,6 +140,13 @@ function SortableList() {
             return;
         }
 
+		var iconIconFileEnding = "svg";
+		
+		if (Settings != null && Settings.hasOwnProperty("icon-file-ending"))
+		{
+			iconIconFileEnding = Settings["icon-file-ending"];
+		}
+                
 
         var html = "";
 
@@ -182,7 +189,7 @@ function SortableList() {
                             "<div class='helperActions small-12 medium-2 large-3 large-push-9 columns'>" +
                                 "<!-- ko if:HelpText().length > 0 -->" +
                                     "<div class='list-tooltip reload-on-dom-insert' data-bind='tooltip: { content: HelpText() }'>" +
-                                        "<img data-bind='attr { src: ($root.GetContentPath() + \"Info2.svg\" ) }' />" +
+                                        "<img data-bind='attr { src: ($root.GetContentPath() + \"Info2."+iconIconFileEnding+"\" ) }' />" +
                                     "</div>" +
                                 "<!-- /ko -->" +
                                 "<!-- ko if:AddAllowed() -->" +
@@ -276,7 +283,7 @@ function SortableList() {
 														"<!-- ko foreach: Actions() -->" +
 															"<a class='action' data-bind='attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", title: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description) }, click: function(data, event) { return $root.actionClick(data, event, $parents) }, clickBubble: false'>" +
 																"<!-- ko if: IsTextLabel() == false -->" +
-																	"<img data-bind='attr { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \".svg\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
+																	"<img data-bind='attr { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \"."+iconIconFileEnding+"\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
 																"<!-- /ko -->" +
 																"<!-- ko if: IsTextLabel() -->" +
 																	"<span data-bind='text: Type()'>" +
@@ -290,7 +297,7 @@ function SortableList() {
 												"<!-- ko foreach: $parent.Actions -->" +
 													"<a class='action' data-bind='attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", title: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description) }, click: function(data, event) { return $root.actionClick(data, event, $parents) }, clickBubble: false'>" +
 														"<!-- ko if: IsTextLabel() == false -->" +
-															"<img data-bind='attr: { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \".svg\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
+															"<img data-bind='attr: { src: ($root.GetContentPath() + Type() + (Toggled() ? \"-toggled\" : \"\") + (Disabled() ? \"-disabled\" : \"\") + \"."+iconIconFileEnding+"\"), class: (Disabled() ? Type() +  \" disabled\" : Type()), alt: (Toggled() && ToggledDescription() != \"\" ? ToggledDescription : Description)  }' />" +
 														"<!-- /ko -->" +
 														"<!-- ko if: IsTextLabel() -->" +
 															"<span data-bind='text: Type()'>" +
