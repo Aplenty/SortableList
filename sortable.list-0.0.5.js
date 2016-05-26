@@ -923,7 +923,11 @@ $.fn.extend({
 
 function afterFailure(id) {
     for (list in SortableLists) {
-        if (SortableLists[list].GetId() == id) {
+		
+		//todo
+		//Changes in code has made it so not only sortable lists in the variable SortableLists. We therefore check that is has the GetId method first.
+		//We should consider looking in to why it's no only sortable lists in the variable
+        if (SortableLists[list].hasOwnProperty("GetId") && SortableLists[list].GetId() == id) {
             $(SortableLists[list].GetContainer()).unblock();
         }
     }
