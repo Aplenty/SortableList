@@ -139,11 +139,14 @@ namespace SortableList.Models
 		public IList<SortableListRowAction> Actions { get; set; }
 	}
 
-	public class SortableListColumnData
-	{
-		public SortableListColumnData()
+
+	
+	
+    public class SortableListLabelColumnData : SortableListColumnData
+    {
+		public SortableListLabelColumnData() : base("Label")
 		{
-			Children = new List<SortableListColumnChildren>();
+		    
 		}
 
 		/// <summary>
@@ -152,24 +155,12 @@ namespace SortableList.Models
 		/// </summary>
 		public String Label { get; set; }
 
-        /// <summary>
-        /// If set, this text will be displayed below the Label in a different style. Can be used to add more detailed information about the Label value. If the header says opening hours, the Label might say 08:00 - 17:00, and the LabelDescription might say "Closed 1/1 and 25/12"
-        /// This is ignored if the Children collection is set.
-        /// </summary>
-        public String LabelDescription { get; set; }
-
-        /// <summary>
-        ///If this is false the Url attribute will be ignored.
-        ///If this is true it will either follow Url on click if set, otherwise fire an event
-        ///The url can be null and this true, as there will then be an event fired.
-        /// </summary>
-        public bool Interactive { get; set; }
-
 		/// <summary>
-		/// This is the id sent out with an event for the clicked item.
-		/// This is not needed if you have an Url set as no event will be fired in that case.
+		///If this is false the Url attribute will be ignored.
+		///If this is true it will either follow Url on click if set, otherwise fire an event
+		///The url can be null and this true, as there will then be an event fired.
 		/// </summary>
-		public string Id { get; set; }
+		public bool Interactive { get; set; }
 
 		/// <summary>
 		///Url to be called when clicked
@@ -180,18 +171,45 @@ namespace SortableList.Models
 		/// If Url is set you can here decide if the link should be opened in new window or same window
 		/// </summary>
 		public bool OpenUrlNewWindow { get; set; }
-
-		/// <summary>
-		///	If you want any special css classes on this cell you can add them here as a space separated string
-		/// </summary>
-		public string CssClasses { get; set; }
-
-		/// <summary>
-		///A Column can contain a list of all the children. Theoretically it could be a list of anything, but children is most logical
-		///If this is set the Label is ignored
-		/// </summary>
-		public IList<SortableListColumnChildren> Children { get; set; }
+        
 	}
+
+    public class SortableListCheckboxColumnData : SortableListColumnData
+    {
+        public SortableListCheckboxColumnData() : base("Checkbox")
+        {
+            ActionName = "";
+        }
+
+        /// <summary>
+        /// The checked state of the control
+        /// </summary>
+        public bool Checked { get; set; }
+
+        /// <summary>
+        /// The name of the event fired in JS when an item is checked/unchecked
+        /// It only needs to be set if if you want to listen for check/uncheck events in the frontend
+        /// </summary>
+        public string ActionName { get; set; }
+        
+    }
+
+    public class SortableListHtmlColumnData : SortableListColumnData
+    {
+        public SortableListHtmlColumnData() : base("Html")
+        {
+            
+        }
+
+        /// <summary>
+        /// The html to be rendered in the cell
+        /// </summary>
+        public string Html { get; set; }
+
+    }
+	
+	
+	
 
 	public class SortableListColumnChildren
 	{

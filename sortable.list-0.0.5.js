@@ -240,40 +240,43 @@ function SortableList() {
                         "<tbody data-bind='foreach: Rows'>" +
 							"<!-- ko ifnot:Hidden() -->" +
 								"<tr class='FoldBase' data-bind='foreach: Cells, css: { \"even\": ($index() % 2 == 0) }, attr: { \"data-id\":Id }, click: function(data, event) { return $root.itemClick(data, event, $parents, true) }'>" +
-									"<!-- ko if:Children().length > 0 -->" +
-										"<td data-bind='foreach:Children, css:  $root.combineCss({ \"FoldChildren\": ($context.$index() > 0) }, CssClasses()), attr: {\"data-heading\": $root.Columns()[$index()].Label()}'>" +
-											"<!-- ko if:Interactive -->" +
-												"<a data-bind='text:Label, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\" }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }'>" +
-												"</a>" +
-											"<!-- /ko -->" +
-											"<!-- ko ifnot:Interactive -->" +
-												"<span data-bind='text:Label'>" +
-												"</span>" +
-											"<!-- /ko -->" +
-										"</td>" +
-									"<!-- /ko -->" +
-									"<!-- ko if:Children().length == 0 -->" +
-										"<!-- ko ifnot:Interactive() -->" +
-											"<td data-bind='css: $root.combineCss({ \"FoldChildren\": ($context.$index() > 0) }, CssClasses()), attr: {\"data-heading\": $root.Columns()[$index()].Label() }'>" +
-                                            "<span data-bind='text: Label' class='listLabel'>" +
-                                            "</span>" +
-                                            "<!-- ko if: LabelDescription -->" +
-                                                    "<span data-bind='text: LabelDescription' class='listLabelDescription'>" +
-                                                    "</span>" +
-                                                "<!-- /ko -->" +
-											"</td>" +
-										"<!-- /ko -->" +
-										"<!-- ko if:Interactive() -->" +
-											"<td data-bind='css:  $root.combineCss({ \"FoldChildren\": ($context.$index() > 0) }, CssClasses()), attr: {\"data-heading\": $root.Columns()[$index()].Label() }'>" +
-												"<a data-bind='text:Label, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", target: OpenUrlNewWindow() == true ? \"_blank\" : \"_self\"  }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }, clickBubble: false' class='listLabel'>" +
-												"</a>" +
-                                                "<!-- ko if: LabelDescription -->" +
-                                                    "<span data-bind='text: LabelDescription' class='listLabelDescription'>" +
-                                                    "</span>" +
-                                                "<!-- /ko -->" +
-											"</td>" +
-										"<!-- /ko -->" +
-									"<!-- /ko -->" +
+
+                                    "<!-- ko if:Type() == 'Checkbox' -->" +
+                                    "<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+                                        "<input type='checkbox' data-bind='attr: { \"data-id\": Id, \"data-actionName\": ActionName}, checked: Checked(), click: function(data, event) { return $root.checkboxClick(data, event, $parents) }, clickBubble: false'></input>" +
+                                    "</td>" +
+                                    "<!-- /ko -->" +
+
+                                    "<!-- ko if:Type() == 'Html' -->" +
+                                    
+                                    "<!-- /ko -->" +									
+									
+                                    "<!-- ko if:Type() == 'Label' -->" +
+									    "<!-- ko if:Children().length > 0 -->" +
+										    "<td data-bind='foreach:Children, css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+											    "<!-- ko if:Interactive -->" +
+												    "<a data-bind='text:Label, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\" }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }'>" +
+												    "</a>" +
+											    "<!-- /ko -->" +
+											    "<!-- ko ifnot:Interactive -->" +
+												    "<span data-bind='text:Label'>" +
+												    "</span>" +
+											    "<!-- /ko -->" +
+										    "</td>" +
+									    "<!-- /ko -->" +
+									    "<!-- ko if:Children().length == 0 -->" +
+										    "<!-- ko ifnot:Interactive() -->" +
+											    "<td data-bind='text:Label, css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+											    "</td>" +
+										    "<!-- /ko -->" +
+										    "<!-- ko if:Interactive() -->" +
+											    "<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+												    "<a data-bind='text:Label, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", target: OpenUrlNewWindow() == true ? \"_blank\" : \"_self\"  }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }, clickBubble: false'>" +
+												    "</a>" +
+											    "</td>" +
+										    "<!-- /ko -->" +
+									    "<!-- /ko -->" +
+                                    "<!-- /ko -->" +
 									"<!-- ko if: $parent.Cells().length == ($index()+1) -->" +
 
 										"<!-- ko if: $root.HideActionsColumn() == false -->" +
@@ -575,6 +578,32 @@ function SortableList() {
             $(Container).trigger("sortableListAction", { type: typeOfChild, action: "add", idCollection: idCollection, model: model, event: event });
         };
 
+        selfModel.checkboxClick = function (itemData, event, parents) {
+
+            itemData.Checked(!itemData.Checked());
+
+            var typeOfChild = "Item";
+
+            var idCollection = new Array();
+
+            if (typeof itemData.Id == 'function' && typeof itemData.Id() != 'undefined' && itemData.Id() != null && itemData.Id().length > 0) {
+                idCollection.push(itemData.Id());
+            }
+
+
+            for (var currentParent in parents) {
+                if (typeof parents[currentParent] != 'undefined' && typeof parents[currentParent].Id == 'function' && typeof parents[currentParent].Id() != 'undefined' && parents[currentParent].Id() != null && parents[currentParent].Id().length > 0 && parents.hasOwnProperty(currentParent)) {
+                    idCollection.push(parents[currentParent].Id());
+                }
+            }
+
+            $(Container).trigger("sortableListAction", { type: typeOfChild, action: itemData.ActionName(), idCollection: idCollection, model: model, event: event });
+
+
+            return true;
+        };		
+		
+		
         selfModel.actionClick = function (actionData, event, parents) {
 
             //we are not allowed to interact with this action
@@ -664,6 +693,78 @@ function SortableList() {
             $(Container).trigger("sortableListAction", { type: typeOfChild, action: actionData.Type(), idCollection: idCollection, model: model, event: event });
         };
 
+		
+
+
+
+        selfModel.GetCheckedIds = function (actionName) {
+
+            var checkedItems = new Array();
+
+            for (var iRow in model.Rows())
+            {
+                for (var iCell in model.Rows()[iRow].Cells()) {
+
+                    var cell = model.Rows()[iRow].Cells()[iCell];
+
+                    if (typeof cell.Checked === 'function' && typeof cell.ActionName === 'function' && cell.ActionName() === actionName && cell.Checked() === true) {
+
+                        var id = 0;
+                        if (cell.Id() > 0) {
+                            id = cell.Id();
+                        } else {
+                            id = model.Rows()[iRow].Id();
+                        }
+
+                        // Confirmed relevant and checked cell. Add the row to the collection
+                        checkedItems.push(id);
+                    }
+                }
+            }
+
+            return checkedItems;
+        };
+
+        selfModel.GetCheckedRows = function (actionName) {
+
+            var checkedItems = new Array();
+
+            for (var iRow in model.Rows()) {
+                for (var iCell in model.Rows()[iRow].Cells()) {
+
+                    var cell = model.Rows()[iRow].Cells()[iCell];
+
+                    if (typeof cell.Checked === 'function' && typeof cell.ActionName === 'function' && cell.ActionName() === actionName && cell.Checked() === true) {
+                        // Confirmed relevant and checked cell. Add the row to the collection
+                        checkedItems.push(model.Rows()[iRow]);
+                    }
+                }
+            }
+
+            return checkedItems;
+        };
+
+
+        selfModel.ToggleAllCheckboxes = function (actionName) {
+
+            var checkedItems = new Array();
+
+            for (var iRow in model.Rows()) {
+                for (var iCell in model.Rows()[iRow].Cells()) {
+
+                    var cell = model.Rows()[iRow].Cells()[iCell];
+
+                    if (typeof cell.Checked === 'function' && typeof cell.ActionName === 'function' && cell.ActionName() === actionName) {
+                        cell.Checked(!cell.Checked());
+                    }
+                }
+            }
+
+            return checkedItems;
+        };		
+		
+		
+		
         //if url is not set, the current one is used
         selfModel.ResetAndReload = function (url) {
 
