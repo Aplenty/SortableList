@@ -92,8 +92,31 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 							"<!-- /ko -->" +
 
 							"<!-- ko if:Type() == 'Html' -->" +
-							
-							"<!-- /ko -->" +									
+                                "<!-- ko if:Children().length > 0 -->" +
+									"<td data-bind='foreach:Children, css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+										"<!-- ko if:Interactive -->" +
+											"<a data-bind='html:Html, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\" }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }'>" +
+											"</a>" +
+										"<!-- /ko -->" +
+										"<!-- ko ifnot:Interactive -->" +
+											"<span data-bind='html:Html'>" +
+											"</span>" +
+										"<!-- /ko -->" +
+									"</td>" +
+								"<!-- /ko -->" +
+								"<!-- ko if:Children().length == 0 -->" +
+									"<!-- ko ifnot:Interactive() -->" +
+										"<td data-bind='html:Html, css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+										"</td>" +
+									"<!-- /ko -->" +
+									"<!-- ko if:Interactive() -->" +
+										"<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
+											"<a data-bind='html:Html, attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", target: OpenUrlNewWindow() == true ? \"_blank\" : \"_self\"  }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }, clickBubble: false'>" +
+											"</a>" +
+										"</td>" +
+									"<!-- /ko -->" +
+								"<!-- /ko -->" +
+                            "<!-- /ko -->" +
 							
 							"<!-- ko if:Type() == 'Label' -->" +
 								"<!-- ko if:Children().length > 0 -->" +

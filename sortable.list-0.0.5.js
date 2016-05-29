@@ -190,6 +190,8 @@ function SortableList() {
                 $(Container).unblock();
 
                 done(data);
+				
+				$(Container).trigger("sortableListAction", { type: "Item", action: "loaded" });
             })
             .fail(function () {
             	ajaxCall = null;
