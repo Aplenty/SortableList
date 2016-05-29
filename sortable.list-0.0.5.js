@@ -148,10 +148,7 @@ function SortableList() {
 		}
                 
 
-        var html = "";
-
 		var addButtonLabel = sortableListSelf.t("[[[Add new]]]");
-        
 		if (Settings != null && Settings.hasOwnProperty("add-label"))
 		{
 			addButtonLabel = Settings["add-label"];
@@ -162,7 +159,7 @@ function SortableList() {
         //default template
         if (typeof template == 'undefined' || template == null || template.length == 0) {
             
-			template = sortableListTemplate;
+			template = GetSortableListTemplate(sortableListSelf.t, addButtonLabel, iconIconFileEnding);
         }
         
 
