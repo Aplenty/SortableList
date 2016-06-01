@@ -191,7 +191,10 @@ function SortableList() {
 
                 done(data);
 				
-				$(Container).trigger("sortableListAction", { type: "Item", action: "loaded" });
+				//This is only an event to show that the table is loaded, no id collection used.
+				var idCollection = new Array();
+				idCollection.push(0);
+				$(Container).trigger("sortableListAction", { type: "Item", action: "loaded", idCollection: idCollection, model: model, event: null });
             })
             .fail(function () {
             	ajaxCall = null;
