@@ -51,7 +51,7 @@ function SortableList() {
 
 	sortableListSelf.t = function(src)
 	{
-		//If string does not start with "[[[", we assume i18n plugin has been used and it is already translated
+		//If string does not start with three [, we assume i18n plugin has been used and it is already translated
 		if(src.indexOf("[["+"[") != 0) //split so not found by i18n
 		{
 			return src;	
