@@ -50,7 +50,7 @@ function SortableList() {
     };
 
 	sortableListSelf.t = function (src) {
-		return sortableListSelf.tgurka(src, "[[", "]]");
+		return sortableListSelf.tMinifySafe(src, "[[", "]]");
 	}
 	
 	
