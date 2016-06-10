@@ -54,7 +54,7 @@ function SortableList() {
 	}
 	
 	
-	//This is terrible, but the minifyer would make "[["+"[" into "[[[" which in turn would trigger the i18n lib that would try to translate the text.
+	//This is terrible, but the minifyer would make "[["+"[" into one string with three [ which in turn would trigger the i18n lib that would try to translate the text.
 	//Only solution found was if part of the token came from outside the function.
 	sortableListSelf.tMinifySafe = function(src, halfStartToken, halfEndToken)
 	{
