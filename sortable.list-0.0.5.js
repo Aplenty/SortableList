@@ -49,17 +49,24 @@ function SortableList() {
     	return ContentPath;
     };
 
-	sortableListSelf.t = function(src)
+	sortableListSelf.t = function (src) {
+		return sortableListSelf.tgurka(src, "[[", "]]");
+	}
+	
+	
+	//This is terrible, but the minifyer would make "[["+"[" into "[[[" which in turn would trigger the i18n lib that would try to translate the text.
+	//Only solution found was if part of the token came from outside the function.
+	sortableListSelf.tMinifySafe = function(src, halfStartToken, halfEndToken)
 	{
 		//If string does not start with three [, we assume i18n plugin has been used and it is already translated
-		if(src.indexOf("[["+"[") != 0) //split so not found by i18n
+		if(src.indexOf(halfStartToken+"[") != 0) //split so not found by i18n
 		{
 			return src;	
 		}
 		
 		
 		//There must be an end of nugget, if there is not we just return src
-		var endIndex = src.indexOf("]]"+"]"); //split so not found by i18n
+		var endIndex = src.indexOf(halfEndToken+"]"); //split so not found by i18n
 		if(endIndex === -1)
 		{
 			return src;
