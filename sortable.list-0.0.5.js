@@ -91,7 +91,7 @@ function SortableList() {
 		//Get the actual string
 		var parsedSource = src.substring(3, endIndex);
 		
-		//We don't have our translation so we can't translate, we return the parsed result without [[[]]]
+		//We don't have our translation so we can't translate, we return the parsed result without starting and ending [ ]
 		if(typeof(sortableListLang) == 'undefined' || sortableListLang == null)
 		{
 			return parsedSource;
@@ -106,7 +106,7 @@ function SortableList() {
 			
 		}
 		
-		//Translation not found, we return the parsed result without [[[]]]
+		//Translation not found, we return the parsed result without starting and ending [ ]
 		return parsedSource;
 	}
 
