@@ -144,7 +144,6 @@ namespace SortableList.Models
     {
         protected SortableListColumnData(string type)
         {
-            Children = new List<SortableListColumnChildren>();
             Type = type;
         }
 
@@ -163,12 +162,20 @@ namespace SortableList.Models
         /// </summary>
         public string CssClasses { get; set; }
 
+    }
+	
+	public class SortableListChildCollectionColumnData : SortableListColumnData
+    {
+        public SortableListChildCollectionColumnData() : base("ChildCollection")
+        {
+			Children = new List<SortableListColumnChildren>();
+        }
+
         /// <summary>
-        ///A Column can contain a list of all the children. Theoretically it could be a list of anything, but children is most logical
-        ///If this is set the Label is ignored
+        /// A Column can contain a list of all the children. Theoretically it could be a list of anything, but children is most logical
         /// </summary>
         public IList<SortableListColumnChildren> Children { get; set; }
-
+        
     }
 	
     public class SortableListLabelColumnData : SortableListColumnData
@@ -278,11 +285,15 @@ namespace SortableList.Models
 		/// </summary>
 		public string Id { get; set; }
 
-
 		/// <summary>
 		///Url to be called when clicked
 		/// </summary>
 		public String Url { get; set; }
+		
+		/// <summary>
+        ///	If you want any special css classes on this child you can add them here as a space separated string
+        /// </summary>
+        public string CssClasses { get; set; }
 	}
 
 	public class SortableListRowActionGroup
