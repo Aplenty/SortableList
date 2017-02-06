@@ -19,7 +19,7 @@ namespace SortableList.Models
 		/// <summary>
 		/// If set an icon for displaying a help text will be visible that allows the user to see what he can do with this table 
 		/// </summary>
-		public String HelpText { get; set; }
+		public String HelpText { get; set; } = string.Empty;
 
 		/// <summary>
 		/// If set to true there will be a link to add new instance of whatever the table is listing.
