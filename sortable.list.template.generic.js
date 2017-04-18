@@ -121,7 +121,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 								"<!-- ko ifnot:Interactive() -->" +
 									"<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
 										"<!-- ko if:ImageUrl() != null && ImageUrl().length > 0 -->" +
-											"<img data-bind='attr: { src: ImageUrl() } />" +
+											"<img data-bind='attr: { src: ImageUrl() }' />" +
 										"<!-- /ko -->" +
 										"<span data-bind='text:Label'>" + 
 										"</span>" +
@@ -131,7 +131,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 									"<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
 										"<a data-bind='attr: { href: Url() != null && Url().length > 0 ? Url() : \"#\", target: OpenUrlNewWindow() == true ? \"_blank\" : \"_self\"  }, click: function(data, event) { return $root.itemClick(data, event, $parents, false) }, clickBubble: false'>" +
 											"<!-- ko if:ImageUrl() != null && ImageUrl().length > 0 -->" +
-												"<img data-bind='attr: { src: ImageUrl() } />" +
+												"<img data-bind='attr: { src: ImageUrl() }' />" +
 											"<!-- /ko -->" +
 											"<span data-bind='text:Label'>" + 
 											"</span>" +
