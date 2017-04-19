@@ -846,7 +846,7 @@ $.fn.extend({
     	var element = this.first()[0];
 	    index = 0;
     	for (list in SortableLists) {
-    		if (SortableLists[list].GetContainer() == element) {
+    		if (SortableLists[list].hasOwnProperty("GetContainer") && SortableLists[list].GetContainer() == element) {
     			SortableLists.splice(index, 1);
     		}
 		    index++;
