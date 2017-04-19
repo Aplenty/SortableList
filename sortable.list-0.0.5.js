@@ -832,15 +832,17 @@ $.fn.extend({
 		if (!this.length)
 			return null;
 
-		var element = this.first()[0];
-		index = 0;
-		for (list in SortableLists) {
-			if (SortableLists[list].GetContainer() == element) {
-				SortableLists.splice(index, 1);
-			}
-			index++;
-		}
-		return null;
+
+    	var element = this.first()[0];
+	    index = 0;
+    	for (list in SortableLists) {
+    		if (SortableLists[list].hasOwnProperty("GetContainer") && SortableLists[list].GetContainer() == element) {
+    			SortableLists.splice(index, 1);
+    		}
+		    index++;
+	    }
+    	return null;
+
 
 	}
 });
