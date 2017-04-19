@@ -13,20 +13,6 @@ namespace SortableList.Models
 		public int? OperationResponseId { get; set; }
 		public bool? OperationResponseBool { get; set; }
         public string OperationResponseTextOrHtml { get; set; } //used when all you want to do is return some simple text or rendered html
-        //public ICollection<ValidationError> ExtendedValidationErrors { get; set; }   // Validation errors caught manually in the handler method
-
-
-        //public void AddValidationError(string fieldname, string errorMessage)
-        //{
-        //    AddValidationError(new ValidationError() { FieldName = fieldname, ErrorMessage = errorMessage });
-        //}
-        //public void AddValidationError(ValidationError error)
-        //{
-        //    if (ExtendedValidationErrors == null)
-        //        ExtendedValidationErrors = new List<ValidationError>();
-
-        //    ExtendedValidationErrors.Add(error);
-        //}
 
     }
 }
