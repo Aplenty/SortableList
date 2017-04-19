@@ -33,6 +33,15 @@ function SortableList() {
 	var searchText = "";
 	var page = 1;
 
+	var GetWaitHtml = function () {
+		var loadingText = "<h1>[[[Please wait...]]]</h1>";
+		if ($(".loading-anim").length) {
+			loadingText = $(".loading-anim").html();
+		}
+
+		return loadingText;
+	};
+
 	sortableListSelf.GetModel = function () {
 		return model;
 	};
@@ -52,6 +61,8 @@ function SortableList() {
 	sortableListSelf.t = function (src) {
 		return sortableListSelf.tMinifySafe(src, "[[", "]]");
 	}
+
+
 
 
 	//This is terrible, but the minifyer would make "[["+"[" into one string with three [ which in turn would trigger the i18n lib that would try to translate the text.
@@ -175,7 +186,7 @@ function SortableList() {
 			ajaxCall = null;
 		}
 
-		$(Container).block({ message: $(".loading-anim").html() });
+		$(Container).block({ message: GetWaitHtml() });
 
 		ajaxCall = $.ajax({
 			type: "POST",
@@ -220,7 +231,6 @@ function SortableList() {
 		selfModel.getActionText = function () {
 			return selfModel.isFullSize() ? sortableListSelf.t("[[[Actions]]]") : "<em>" + sortableListSelf.t("[[[Click to fold down options]]]") + "</em>";
 		}
-
 
 		selfModel.getIsFullSize = function () {
 			//should return true if we want full sized version, false if we want small cell phone version
@@ -466,7 +476,7 @@ function SortableList() {
 				//We want to action the url with ajax
 				if (actionData.ExecuteAsAjax() == true) {
 
-					$(Container).block({ message: $(".loading-anim").html() });
+					$(Container).block({ message: GetWaitHtml() });
 					//$(Container).block({ message: '<div class="blockui-info-box">'+sortableListSelf.t("[[[Loading]]]")+'</div>' });
 
 					ajaxCall = $.ajax({
