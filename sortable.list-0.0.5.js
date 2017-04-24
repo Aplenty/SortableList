@@ -127,8 +127,16 @@ function SortableList() {
 		Id = id;
 		ContentPath = contentPath;
 
-		if (settings != null)
+		if (settings)
+		{
 			Settings = settings;
+			
+			if(typeof Settings === "string")
+			{
+				Settings = JSON.parse(Settings);
+			}
+		}
+			
 
 		_template = template;
 		sortableListSelf.insertListHtml(_template);
