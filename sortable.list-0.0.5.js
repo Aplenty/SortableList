@@ -291,10 +291,6 @@ function SortableList() {
 
 		selfModel.search = function (resortData, event) {
 
-			if (event.keyCode >= 16 && event.keyCode <= 18 && event.keyCode >= 37 && event.keyCode <= 40) {
-				return; // Filters out Shift, Ctrl, Alt and arrow keys TODO: Remove once we change to "input" as event trigger
-			}
-
 			//we only search when we have typed more than two characters
 			if (selfModel.searchText().length > 2) {
 				searchText = selfModel.searchText();

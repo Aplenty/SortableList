@@ -43,7 +43,6 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 						"<!-- /ko -->" +
 					 "</div>" +
 					 "<div class='filter right'>" +
-						// TODO: valueUpdate: "afterkeydown" works in IE9-, but also triggers on shift, alt and so on. Once IE9 support is dropped, change to "input" instead, that only responds to actual changes
 						"<input class='reload-on-dom-insert' type='text' data-bind='textInput: searchText, event: {input: $root.search}' placeholder='" + translationCallback("[[[filter]]]") + "' />" +
 					"</div>" +
 				"</div>"+
