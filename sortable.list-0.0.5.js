@@ -296,6 +296,12 @@ function SortableList() {
 				searchText = selfModel.searchText();
 			}
 			else {
+				
+				//If we have too few characters we just don't search (however erasing characters we should search for empty string)
+				if (searchText === "" || searchText.length <= 2) {
+					return;
+				}
+				
 				//empty the search text when we have not typed enough to search
 				searchText = "";
 			}
