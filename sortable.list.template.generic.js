@@ -120,7 +120,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 								"<!-- ko ifnot:Interactive() -->" +
 									"<td data-bind='css: { \"FoldChildren\": ($context.$index() > 0) }, attr: {\"data-heading\": $root.Columns()[$index()].Label(), \"class\": CssClasses() }'>" +
 										"<!-- ko if:ImageUrl() != null && ImageUrl().length > 0 -->" +
-											"<img data-bind='attr: { src: ImageUrl() }' />" +
+											"<img data-bind='attr: { src: ImageUrl() }' class='list-thumbnail' />" +
 										"<!-- /ko -->" +
 										"<span data-bind='text:Label'>" + 
 										"</span>" +
