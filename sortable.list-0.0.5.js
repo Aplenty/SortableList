@@ -340,6 +340,41 @@ function SortableList() {
 
 			}
 		};
+		
+		selfModel.iconCount = function(ActionColumn) {
+			var items = ActionColumn();
+			var actionCount = 0;
+
+			if (items == null || typeof items.length === "undefined") {
+				return 0;
+			}
+			
+			var actionGroups = items.ActionGroups();
+			if(actionGroups !== null && typeof actionGroups.length !== "undefined")
+			{
+				for (var i = 0; i < actionGroups.length; i++) {
+					
+					//There are action groups so we look for actions in each group
+					var actions = actionGroups[i].Actions();
+					
+					if(actions !== null && typeof actions.length !== "undefined")
+					{
+						actionCount += actions.length;
+					}
+				
+				}
+			}
+			
+			//loose actions
+			var actions = ActionColumn.Actions();
+			
+			if(actions !== null && typeof actions.length !== "undefined")
+			{
+				actionCount += actions.length;
+			}
+
+			return actionCount;
+		};
 
 		selfModel.combineCss = function (cssObj1, cssObj2) {
 			return jQuery.extend({}, cssObj1, cssObj2);
@@ -866,6 +901,8 @@ $.fn.extend({
 
 	}
 });
+
+
 
 function afterFailure(id) {
 	for (list in SortableLists) {
