@@ -221,7 +221,7 @@ function SortableList() {
 	};
 
 	sortableListSelf.PagingModel = function () {
-		selfPager = this;
+		var selfPager = this;
 
 		selfPager.pageNr = ko.observable();
 		selfPager.active = ko.observable();
