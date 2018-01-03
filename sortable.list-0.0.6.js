@@ -342,14 +342,13 @@ function SortableList() {
 		};
 		
 		selfModel.iconCount = function(ActionColumn) {
-			var items = ActionColumn();
 			var actionCount = 0;
 
-			if (items == null || typeof items.length === "undefined") {
+            if (ActionColumn == null || typeof ActionColumn === "undefined") {
 				return 0;
 			}
 			
-			var actionGroups = items.ActionGroups();
+            var actionGroups = ActionColumn.ActionGroups();
 			if(actionGroups !== null && typeof actionGroups.length !== "undefined")
 			{
 				for (var i = 0; i < actionGroups.length; i++) {

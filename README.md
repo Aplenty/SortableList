@@ -7,7 +7,9 @@ Foundation support for figuring out if in will size
 
 Has support for using both translation files in different languages as well as i18n (https://github.com/turquoiseowl/i18n) plugin with [[[text]]] as nuggets
 
-V 0.0.5 Knockout driven with c# class as DTO.
+V 0.0.7 Knockout driven with c# class as DTO.
+
+Requires Knockout 3.2
 
 ------------------------------------------------------------
 
