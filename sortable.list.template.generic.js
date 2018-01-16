@@ -141,7 +141,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 							"<!-- ko if: $parent.Cells().length == ($index()+1) -->" +
 
 								"<!-- ko if: $root.HideActionsColumn() == false -->" +
-                                    "<td class='listActions FoldChildren' data-bind='attr: {\"data-heading\": \"" + translationCallback("[[[Actions]]]") +"\", \"class\": \"icons-\"+$root.iconCount($parent)}'>" +
+                                    "<td data-bind='attr: {\"data-heading\": \"" + translationCallback("[[[Actions]]]") +"\", \"class\": \"listActions FoldChildren icons-\"+$root.iconCount($parent)}'>" +
 										"<!-- ko foreach: $parent.ActionGroups -->" +
 											"<span class='action-group'>" +
 												"<!-- ko foreach: Actions() -->" +

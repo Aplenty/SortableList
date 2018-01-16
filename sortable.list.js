@@ -5,7 +5,7 @@ var SortableLists = new Array();
 // Allows us to look up a specific sortable list by the element it's attached to, by calling SortableLists.getByContainer($("#MyListTarget"));
 // The same can be achieved by calling $("#MyListTarget").getListModel();
 SortableLists.getByContainer = function (container) {
-	for (i = 0; i < this.length; i++) {
+	for (var i = 0; i < this.length; i++) {
 		if (this[i].GetContainer() == container || (container.hasOwnProperty("length") && container.length > 0 && this[i].GetContainer() == container[0]))
 			return this[i];
 	}
@@ -702,9 +702,9 @@ function SortableList() {
 		};
 
 		selfModel.ToggleDisabledAction = function (id, action) {
-			for (i = 0; i < selfModel.Rows().length; i++) {
+			for (var i = 0; i < selfModel.Rows().length; i++) {
 				if (selfModel.Rows()[i].Id() == id) {
-					for (j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
+					for (var j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
 						if (selfModel.Rows()[i].Actions()[j].Type() == action) {
 							selfModel.Rows()[i].Actions()[j].Disabled(!selfModel.Rows()[i].Actions()[j].Disabled());
 							return selfModel.Rows()[i].Actions()[j].Disabled();
@@ -716,9 +716,9 @@ function SortableList() {
 		};
 
 		selfModel.ToggleAction = function (id, action) {
-			for (i = 0; i < selfModel.Rows().length; i++) {
+			for (var i = 0; i < selfModel.Rows().length; i++) {
 				if (selfModel.Rows()[i].Id() == id) {
-					for (j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
+					for (var j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
 						if (selfModel.Rows()[i].Actions()[j].Type() == action) {
 							selfModel.Rows()[i].Actions()[j].Toggled(!selfModel.Rows()[i].Actions()[j].Toggled());
 							return selfModel.Rows()[i].Actions()[j].Toggled();
@@ -730,9 +730,9 @@ function SortableList() {
 		};
 
 		selfModel.IsActionToggled = function (id, action) {
-			for (i = 0; i < selfModel.Rows().length; i++) {
+			for (var i = 0; i < selfModel.Rows().length; i++) {
 				if (selfModel.Rows()[i].Id() == id) {
-					for (j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
+					for (var j = 0; j < selfModel.Rows()[i].Actions().length; j++) {
 						if (selfModel.Rows()[i].Actions()[j].Type() == action) {
 							return selfModel.Rows()[i].Actions()[j].Toggled();
 						}
@@ -743,7 +743,7 @@ function SortableList() {
 		};
 
 		selfModel.HideRow = function (id) { //this still has bugs with every second row coloring
-			for (i = 0; i < selfModel.Rows().length; i++) {
+			for (var i = 0; i < selfModel.Rows().length; i++) {
 				if (selfModel.Rows()[i].Id() == id) {
 					selfModel.Rows()[i].Hidden(true);
 					break;
@@ -752,7 +752,7 @@ function SortableList() {
 		};
 
 		selfModel.ShowRow = function (id) {
-			for (i = 0; i < selfModel.Rows().length; i++) {
+			for (var i = 0; i < selfModel.Rows().length; i++) {
 				if (selfModel.Rows()[i].Id() == id) {
 					selfModel.Rows()[i].Hidden(false);
 					break;
@@ -854,7 +854,7 @@ function ClearNonExistentLists() {
 	//list might have existed in popups and simply do no exist any more so we remove them
 
 	index = 0;
-	for (list in SortableLists) {
+	for (var list in SortableLists) {
 		var container = $(SortableLists[list].GetContainer());
 		if (container.length <= 0) {
 			SortableLists.splice(index, 1);
@@ -873,7 +873,7 @@ $.fn.extend({
 			return null;
 
 		var element = this.first()[0];
-		for (list in SortableLists) {
+		for (var list in SortableLists) {
 			if (SortableLists[list].hasOwnProperty("GetContainer") && SortableLists[list].GetContainer() == element) {
 				return SortableLists[list].GetModel();
 			}
@@ -889,7 +889,7 @@ $.fn.extend({
 
     	var element = this.first()[0];
 	    index = 0;
-    	for (list in SortableLists) {
+    	for (var list in SortableLists) {
     		if (SortableLists[list].hasOwnProperty("GetContainer") && SortableLists[list].GetContainer() == element) {
     			SortableLists.splice(index, 1);
     		}
@@ -904,7 +904,7 @@ $.fn.extend({
 
 
 function afterFailure(id) {
-	for (list in SortableLists) {
+	for (var list in SortableLists) {
 
 		//todo
 		//Changes in code has made it so not only sortable lists in the variable SortableLists. We therefore check that is has the GetId method first.
@@ -918,7 +918,7 @@ function afterFailure(id) {
 function getFunctionFromString(string) {
 	var scope = window;
 	var scopeSplit = string.split('.');
-	for (i = 0; i < scopeSplit.length - 1; i++) {
+	for (var i = 0; i < scopeSplit.length - 1; i++) {
 		scope = scope[scopeSplit[i]];
 
 		if (scope == undefined) return;
