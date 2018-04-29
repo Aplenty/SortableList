@@ -2,9 +2,9 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 {
 
 	var sortableListDefaultPager = "<div class='pagination-centered'>" +
-		"<div data-bind='text: \" "+translationCallback("[[[Displaying]]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+translationCallback("[[[of///displaying 10-20 OF 40 results]]]")+" \" + $root.TotalItemCount() + \" "+translationCallback("[[[total results.]]]")+"\"'>" +
+		"<div data-bind='text: \" "+translationCallback("[[[Displaying///followed by numbers, example: 'Displaying 20 of 50']]]")+" \" + ($root.TotalItemCount() == 0 ? 0 : ($root.CurrentPage()*$root.ItemsPerPage()-$root.ItemsPerPage()+1)) + \" - \" + ($root.CurrentPage()*$root.ItemsPerPage() > $root.TotalItemCount() ? $root.TotalItemCount() : $root.CurrentPage()*$root.ItemsPerPage()) + \" "+translationCallback("[[[of///in the context: Displaying 10-20 'of' 40 results]]]")+" \" + $root.TotalItemCount() + \" "+translationCallback("[[[total results///preceded by 'Displaying 10 of 20'... total results]]]")+"\"'>" +
 			"</div><ul class='pagination'>" +
-			"<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+translationCallback("[[[Prev]]]")+"</a></li>" +
+			"<li class='arrow reload-on-dom-insert' data-bind='click: $root.prevPage, css: { unavailable: $root.CurrentPage() <= 1 }'><a href=''>&laquo; "+translationCallback("[[[Prev///Short for previous]]]")+"</a></li>" +
 			"<!-- ko foreach: pages -->" +
 			"<!-- ko if: (pageNr == 1 && $root.CurrentPage() >= 4 && Math.ceil($root.TotalItemCount()/$root.ItemsPerPage()) > 5)  -->" +
 			"<li class='pagenum' data-bind='click: $root.changePage'><a href='' data-bind='text: (pageNr+\"...\")'></a></li>" +
@@ -23,7 +23,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 					
 	var sortableListTemplate =
 		//"<div class='filter'>" +
-		//    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+translationCallback("[[[filter]]]")+"' />" +
+		//    "<input type='text' data-bind='value: searchText, valueUpdate: \"input\", event: {keyup: $root.search}' placeholder='"+translationCallback("[[[Filter]]]")+"' />" +
 		//"</div>" +
 		"<div>" +
 			"<div class='header'>" +
@@ -43,7 +43,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 						"<!-- /ko -->" +
 					 "</div>" +
 					 "<div class='filter right'>" +
-						"<input class='reload-on-dom-insert' type='text' data-bind='textInput: searchText, event: {input: $root.search}' placeholder='" + translationCallback("[[[filter]]]") + "' />" +
+						"<input class='reload-on-dom-insert' type='text' data-bind='textInput: searchText, event: {input: $root.search}' placeholder='" + translationCallback("[[[Filter///placeholder in the search input field]]]") + "' />" +
 					"</div>" +
 				"</div>"+
 			"</div>" +
@@ -141,7 +141,7 @@ function GetSortableListTemplate(translationCallback, addButtonLabel, iconIconFi
 							"<!-- ko if: $parent.Cells().length == ($index()+1) -->" +
 
 								"<!-- ko if: $root.HideActionsColumn() == false -->" +
-                                    "<td data-bind='attr: {\"data-heading\": \"" + translationCallback("[[[Actions]]]") +"\", \"class\": \"listActions FoldChildren icons-\"+$root.iconCount($parent)}'>" +
+                                    "<td data-bind='attr: {\"data-heading\": \"" + translationCallback("[[[Actions///Header for a column in a table/list. For each row, in this column, there will be available actions for the object that is on that row.]]]") +"\", \"class\": \"listActions FoldChildren icons-\"+$root.iconCount($parent)}'>" +
 										"<!-- ko foreach: $parent.ActionGroups -->" +
 											"<span class='action-group'>" +
 												"<!-- ko foreach: Actions() -->" +

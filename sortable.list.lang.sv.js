@@ -8,8 +8,8 @@
 		value: "av"
 	},
 	{
-		key: "total results.",
-		value: "totalt."
+		key: "total results",
+		value: "totalt"
 	},
 	{
 		key: "Prev",
@@ -24,8 +24,8 @@
 		value: "Skapa"
 	},
 	{
-		key: "filter",
-		value: "filtrera"
+		key: "Filter",
+		value: "Filtrera"
 	},
 	{
 		key: "Actions",
